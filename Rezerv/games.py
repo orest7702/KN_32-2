@@ -43,9 +43,8 @@ class Game():
                 у гравця 2 залишилось витривалості: {card_on_board_2['durability']}
                 """)
             print(f"Переміг гравець: {self.name if card_on_board_1['durability'] > card_on_board_2['durability'] else other.name}")
-            q = self.player_cards[self.name]
-            print(q)
-        print(self.player_cards[self.name])
+            
+        
 
 player_1 = Game("Олег")
 player_2 = Game("Ігор")
