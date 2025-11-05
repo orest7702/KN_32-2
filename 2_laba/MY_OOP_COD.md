@@ -1,86 +1,206 @@
-# Звіт до роботи
-## Тема: Знайомство з ООП
 ### Мета роботи: Начитись використовувати основні принципи ООП, розглянути кострукції побудови класу та створення обєтів та навчитись працювати з ними
-
 ---
-### Виконання роботи
-* Результати виконання завдання ;
-    1. Запустили створення класу з github. Програма вивела значення 
->Розпочинаємо створювати обєкти!
-*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<
-This is object: <__main__.MyName object at 0x00000227F2F76F90> 
-This is object attribute: Bohdan / 1
-This is <class 'property'>: My name is Bohdan / Bohdan@itcollege.lviv.ua
-This is <class 'method'> call: Bohdan@itcollege.lviv.ua
-This is static <class 'function'> with defaults: You say: Hello to everyone!
-This is class variable <class 'int'>: from class 4 / from object 4
-<*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*>
->*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<
-This is object: <__main__.MyName object at 0x00000227F31E4B90>
-This is object attribute: Marta / 2
-This is <class 'property'>: My name is Marta / Marta@itcollege.lviv.ua
-This is <class 'method'> call: Marta@itcollege.lviv.ua
-This is static <class 'function'> with defaults: You say: Hello to everyone!
-This is class variable <class 'int'>: from class 4 / from object 4
-<*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*>
+###### (Я спробував самостійно опрацювати дану тему і ось що у мене получилось [тут](OOP.py) код який я сам написав, в якому описано клас на подобі функціонального програмування описвного [тут](https://github.com/BobasB/2025_kn32_oop/blob/main/3_lab/note.ipynb))
+---
+На парі ми розглядали функціональне та Обєктно Орієнтоване Програмування(ООП), розглянули основні відмінності між ними, а також основні принципи ООП:
+Першим кроком ми розробили невелику гру в функціональному стилі, а потім переробили її в ООП стилі.
+---
+ось код функціонального стилю:
+```python
+import random
+names = ["Мечик", "Шпага", "Сокирка", "Спис"]
+magic_types = ["Вогонь", "Земля", "Вода", "Вітер"]
 
->*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<
-This is object: <__main__.MyName object at 0x00000227F31E4CD0>
-This is object attribute: Anonymous / 4
-This is <class 'property'>: My name is Anonymous / Anonymous@itcollege.lviv.ua
-This is <class 'method'> call: Anonymous@itcollege.lviv.ua
-This is static <class 'function'> with defaults: You say: Hello to everyone!
-This is class variable <class 'int'>: from class 4 / from object 4
-<*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*>
-We are done. We create 4 names! ??? Why 4?
+def draw_card():
+    item = {
+        "name": random.choice(names),
+        "attack_power": random.randint(4, 8),
+        "durability": random.randint(30, 60),
+        "magic_attribute": f"Магія: {random.choice(magic_types)}"
+    }
+    return item
 
-2. не можу
-3. +-знаю
-4. >*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<>*<
-This is object: <__main__.MyName object at 0x0000028EEC6A6F90>
-This is object attribute: Орест / 1
-This is <class 'property'>: My name is Орест / Орест@itcollege.lviv.ua
-This is <class 'method'> call: Орест@itcollege.lviv.ua
-This is static <class 'function'> with defaults: You say: Hello to everyone!
-This is class variable <class 'int'>: from class 5 / from object 5
-<*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*><*>
+player_1 = list()
+player_2 = list()
 
-5. 1. Тому що є функція скажем так дефолтних значень і про передавані none робиться дефолтний запис
-    > self.name = name if name is not None else self.anonymous_user().name цей рядок перевіряє якщо є none то виводити anonymous
-   2. > @staticmethod  
-        def say_hello(message="Hello to everyone!") -> str:  
-        """Static method
-        """  
-        return f"You say: {message}"  #тут замість "You say" треба написти свій тип привітання
-        
-* з використанням URL ![alt text](https://github.com/BobasB/it_college/raw/main/reports/pictures/logo-lit.jpg "ІТ Коледж")
+
+for move in range(3):
+    print("Гравець 1 робить хід:")
+    player_1.append(draw_card())
+    print("Гравець 2 робить хід:")
+    player_2.append(draw_card())
+
+print(f"""Карти у руці гравця 1:
+        {player_1}
+    Карти у руці гравця 2:
+        {player_2}
+      """)
+
+def check_if_player_has_cards(list_of_cards: list) -> bool:
+    return True if len(list_of_cards) >= 1 else False
+
+
+for move in range(3):
+    if check_if_player_has_cards(player_1):
+        card_on_board_1 = player_1.pop()
+    else:
+        print("У гравця 1 не залишилось карт")
     
-* через локальні шляхи ![alt text](./pictures/logo-lit.jpg "ІТ Коледж")
+    if check_if_player_has_cards(player_2):
+        card_on_board_2 = player_2.pop()
+    else:
+        print("У гравця 2 не залишилось карт")
 
-* вставлений код / текстовий або числовий результат / інші результати:
-    - так можна вставляти код, або просто вствляйте посилання на файл з програмою;
-    ```python
-    def simple_function_example():
-        pass
-    ```
-    - якщо потрібно виділити текст, тоді:
-    ```text
-    << Тут можна писати те що хочемо виокремити >>
-    ```
+    while card_on_board_1['durability'] > 0 or card_on_board_2['durability'] > 0:
+        card_on_board_1['durability'] -= card_on_board_2["attack_power"]
+        card_on_board_2['durability'] -= card_on_board_1["attack_power"]
 
-* результати виконання індивідуального завдання (якщо такі є);
+        print(f"""
+        у гравця 1 залишилось витривалості: {card_on_board_1['durability']}
+        у гравця 2 залишилось витривалості: {card_on_board_2['durability']}
+        """)
+    # перевіряємо яка з карт програла
+    if card_on_board_1['durability'] <= 0 and check_if_player_has_cards(player_1):
+        print("Карта гравця 1 Вибуває, гравець витягує нову карту")
+        card_on_board_1 = player_1.pop()
+    elif card_on_board_2['durability'] <= 0 and check_if_player_has_cards(player_2):
+        print("Карта гравця 2 Вибуває, гравець витягує нову карту")
+        card_on_board_2 = player_2.pop()
+    else:
+        print("У гравців закінчились карти")
+```
 
----
-### Висновок:
-> у висновку потрібно відповісти на запитання:
+"
+[Тут](https://github.com/BobasB/2025_kn32_oop/blob/main/3_lab/note.ipynb) детальніше розібрано цей код та його переробка в ООП "
 
-- :question: Що зроблено в роботі;
-- :question: Чи досягнуто мети роботи;
-- :question: Які нові знання отримано;
-- :question: Чи вдалось відповісти на всі питання задані в ході роботи;
-- :question: Чи вдалося виконати всі завдання;
-- :question: Чи виникли складності у виконанні завдання;
-- :question: Чи подобається такий формат здачі роботи (Feedback);
-- :question: Побажання для покращення (Suggestions);
 
----
+Ось результат коду: 
+```plaintext
+Гравець 1 робить хід:
+Гравець 2 робить хід:
+Гравець 1 робить хід:
+Гравець 2 робить хід:
+Гравець 1 робить хід:
+Гравець 2 робить хід:
+Карти у руці гравця 1:
+        [{'name': 'Сокирка', 'attack_power': 8, 'durability': 36, 'magic_attribute': 'Магія: Вогонь'}, {'name': 'Спис', 'attack_power': 7, 'durability': 34, 'magic_attribute': 'Магія: Вітер'}, {'name': 'Мечик', 'attack_power': 8, 'durability': 32, 'magic_attribute': 'Магія: Земля'}]
+    Карти у руці гравця 2:
+        [{'name': 'Шпага', 'attack_power': 4, 'durability': 51, 'magic_attribute': 'Магія: Вітер'}, {'name': 'Спис', 'attack_power': 8, 'durability': 54, 'magic_attribute': 'Магія: Вода'}, {'name': 'Мечик', 'attack_power': 6, 'durability': 59, 'magic_attribute': 'Магія: Вода'}]
+      
+
+        у гравця 1 залишилось витривалості: 26
+        у гравця 2 залишилось витривалості: 51
+        
+
+        у гравця 1 залишилось витривалості: 20
+        у гравця 2 залишилось витривалості: 43
+        
+
+        у гравця 1 залишилось витривалості: 14
+        у гравця 2 залишилось витривалості: 35
+        
+
+        у гравця 1 залишилось витривалості: 8
+        у гравця 2 залишилось витривалості: 27
+        
+
+        у гравця 1 залишилось витривалості: 2
+        у гравця 2 залишилось витривалості: 19
+        
+
+        у гравця 1 залишилось витривалості: -4
+        у гравця 2 залишилось витривалості: 11
+        
+
+        у гравця 1 залишилось витривалості: -10
+        у гравця 2 залишилось витривалості: 3
+        
+
+        у гравця 1 залишилось витривалості: -16
+        у гравця 2 залишилось витривалості: -5
+        
+Карта гравця 1 Вибуває, гравець витягує нову карту
+
+        у гравця 1 залишилось витривалості: 28
+        у гравця 2 залишилось витривалості: 46
+        
+
+        у гравця 1 залишилось витривалості: 20
+        у гравця 2 залишилось витривалості: 38
+        
+
+        у гравця 1 залишилось витривалості: 12
+        у гравця 2 залишилось витривалості: 30
+        
+
+        у гравця 1 залишилось витривалості: 4
+        у гравця 2 залишилось витривалості: 22
+        
+
+        у гравця 1 залишилось витривалості: -4
+        у гравця 2 залишилось витривалості: 14
+        
+
+        у гравця 1 залишилось витривалості: -12
+        у гравця 2 залишилось витривалості: 6
+        
+
+        у гравця 1 залишилось витривалості: -20
+        у гравця 2 залишилось витривалості: -2
+        
+Карта гравця 2 Вибуває, гравець витягує нову карту
+У гравця 1 не залишилось карт
+У гравця 2 не залишилось карт
+
+        у гравця 1 залишилось витривалості: -24
+        у гравця 2 залишилось витривалості: 43
+        
+
+        у гравця 1 залишилось витривалості: -28
+        у гравця 2 залишилось витривалості: 35
+        
+
+        у гравця 1 залишилось витривалості: -32
+        у гравця 2 залишилось витривалості: 27
+        
+
+        у гравця 1 залишилось витривалості: -36
+        у гравця 2 залишилось витривалості: 19
+        
+
+        у гравця 1 залишилось витривалості: -40
+        у гравця 2 залишилось витривалості: 11
+        
+
+        у гравця 1 залишилось витривалості: -44
+        у гравця 2 залишилось витривалості: 3
+        
+
+        у гравця 1 залишилось витривалості: -48
+        у гравця 2 залишилось витривалості: -5
+        
+У гравців закінчились карти
+```
+
+як бачимо нам доводилось двічі робити провірку на наявність карт у гравців, що не є оптимальним 
+```python
+if check_if_player_has_cards(player_1):
+        card_on_board_1 = player_1.pop()
+    else:
+        print("У гравця 1 не залишилось карт")
+    
+    if check_if_player_has_cards(player_2):
+        card_on_board_2 = player_2.pop()
+    else:
+        print("У гравця 2 не залишилось карт")
+
+```
+а у ООП стилі ми б це зробили в методі класу, що є більш оптимальним 
+```python
+    def draw_card(self):
+        if self.has_cards():
+            return self.hand.pop()
+        else:
+            print(f"У гравця {self.name} не залишилось карт")
+            return None
+```
