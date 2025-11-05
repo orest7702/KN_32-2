@@ -1,3 +1,4 @@
+
 class MyName:
     """Опис класу / Документація
     """
@@ -44,7 +45,7 @@ class MyName:
 
 print("Розпочинаємо створювати обєкти!")
 
-names = (None, "Орест", "Bohdan", "Marta")
+names = ("Bohdan", "Marta", None)
 all_names = {name: MyName(name) for name in names}
 
 for name, me in all_names.items():

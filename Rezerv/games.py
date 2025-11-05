@@ -7,7 +7,6 @@ class Game():
         self.magic_types =  ["Вогонь", "Земля", "Вода", "Вітер"]
         self.player_cards = {}
 
-    
     def draw_card (self):  #витягаєм карти
         cards = []
         for move in range(3):
@@ -52,4 +51,3 @@ player_2.draw_card()
 player_1.show_cards()
 player_2.show_cards()
 player_1.fight(player_2)
-print ()
