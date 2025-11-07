@@ -56,13 +56,3 @@ class MyName:
         """Static method"""
         return f"You say: {message}"
 
-
-user1 = MyName("bohdan")
-user2 = MyName("marta")
-user3 = MyName()
-
-user1.save_to_file()
-user2.save_to_file()
-user3.save_to_file()
-
-print(user1.whoami)
