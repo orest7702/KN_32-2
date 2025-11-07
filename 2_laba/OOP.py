@@ -1,58 +1,45 @@
-class MyName:
-    """Опис класу / Документація
-    """
-    total_names = 0  # Class Variable
+import random
 
-    def __init__(self, name=None) -> None:
-        """Ініціалізація класу
-        """
-        if name is None:
-            self.name = "Anonymous"
-        else:
-            # Робимо першу літеру великою
-            name = name.capitalize()
+class Game():
+    def __init__(self, name):
+        self.name = name
+        self.names =  ["Мечик", "Шпага", "Сокирка", "Спис"]
+        self.magic_types =  ["Вогонь", "Земля", "Вода", "Вітер"]
+        self.player_cards = {}
 
-            # Перевіряємо, щоб ім’я містило лише літери
-            if not name.isalpha():
-                raise ValueError("Ім'я може містити лише літери!")
+    def draw_card (self):  #витягаєм карти
+        cards = []
+        for move in range(3):
+            item = {
+                "name": random.choice(self.names),
+                "attack_power": random.randint(4, 8),
+                "durability": random.randint(30, 60),
+                "magic_attribute": f"Магія: {random.choice(self.magic_types)}" 
+            }
+            cards.append(item)
 
-            self.name = name
-
-        MyName.total_names += 1
-        self.my_id = self.total_names
-
-    @property
-    def whoami(self) -> str:
-        """Class property"""
-        return f"My name is {self.name}"
+        self.player_cards[self.name] = cards
+        print(self.player_cards)
+        return item
     
-    @property
-    def my_email(self) -> str:
-        """Class property"""
-        return self.create_email()
+    def show_cards(self):
+        print(f"""Карти у руці гравця {self.name}:
+            {self.player_cards[self.name]}
+        """)
     
-    def create_email(self, domain="itcollege.lviv.ua") -> str:
-        """Instance method — створює e-mail з можливістю змінювати домен."""
-        return f"{self.name}@{domain}"
-
-    @property
-    def full_name(self) -> str:
-        """Class property — повна інформація про користувача."""
-        return f"User #{self.my_id}: {self.name} ({self.my_email})"
-
-    def save_to_file(self, filename="users.txt") -> None:
-        """Instance method — зберігає інформацію про користувача у файл."""
-        with open(filename, "a", encoding="utf-8") as file:
-            file.write(self.full_name + "\n")
-            print("Все готово")
-
-    @classmethod
-    def anonymous_user(cls):
-        """Class method"""
-        return cls("Anonymous")
-    
-    @staticmethod
-    def say_hello(message="Hello to everyone!") -> str:
-        """Static method"""
-        return f"You say: {message}"
-
+    def fight (self, other):
+        for round in range(3):
+            card_on_board_1 = self.player_cards[self.name].pop()
+            card_on_board_2 = other.player_cards[other.name].pop()
+            while card_on_board_1['durability'] > 0 and card_on_board_2['durability'] > 0:
+                card_on_board_1['durability'] -= card_on_board_2["attack_power"]
+                card_on_board_2['durability'] -= card_on_board_1["attack_power"]
+                if card_on_board_1['durability'] <= 0 or card_on_board_2['durability'] <= 0:
+                    break
+                print(f"""
+                у гравця 1 залишилось витривалості: {card_on_board_1['durability']}
+                у гравця 2 залишилось витривалості: {card_on_board_2['durability']}
+                """)
+            print(f"Переміг гравець: {self.name if card_on_board_1['durability'] > card_on_board_2['durability'] else other.name}")
+            
+   
