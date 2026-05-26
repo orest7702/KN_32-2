@@ -7,6 +7,7 @@ init/
 .venv/
 Pipfile.lock
 /virtual_environments/
+Pipfile
 
 .poetry/
 poetry.lock
