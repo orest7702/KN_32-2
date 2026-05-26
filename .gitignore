@@ -4,8 +4,15 @@ Rezerv/
 
 init/
 
-Pipfile/
+.venv/
+Pipfile.lock
+/virtual_environments/
 
-Pipfile.lock/
+.poetry/
+poetry.lock
 
-./virtual_environments/.env/
+.env
+
+__pycache__/
+*.pyc
+.DS_Store
