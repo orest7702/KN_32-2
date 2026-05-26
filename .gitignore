@@ -8,10 +8,13 @@ init/
 Pipfile.lock
 /virtual_environments/
 Pipfile
+pyproject.toml
+
+__init__.py
 
 .poetry/
 poetry.lock
-
+.adk
 .env
 
 __pycache__/
