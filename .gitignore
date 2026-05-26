@@ -4,3 +4,8 @@ Rezerv/
 
 init/
 
+Pipfile/
+
+Pipfile.lock/
+
+./virtual_environments/.env/
